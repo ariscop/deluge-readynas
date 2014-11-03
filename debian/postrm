@@ -18,9 +18,8 @@ set -e
 
 case "$1" in
     purge)
-       rm -rf /apps/sample2
-       systemctl restart apache2.service
-       event_push app readynasd '<delete-s resource-type="LocalApp" resource-id="LocalApp"><LocalApp appname="sample2" success="1" reboot="1"/></delete-s>' 0 0
+       rm -rf /apps/deluge
+       event_push app readynasd '<delete-s resource-type="LocalApp" resource-id="LocalApp"><LocalApp appname="deluge" success="1" reboot="1"/></delete-s>' 0 0
        ;;
     remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
        ;;

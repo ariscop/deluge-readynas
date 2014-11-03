@@ -1,5 +1,5 @@
 #!/bin/sh
-# postinst script for sample2
+# postinst script for deluge
 #
 # see: dh_installdeb(1)
 
@@ -20,20 +20,33 @@ set -e
 
 case "$1" in
   configure)
-    APPDIR=/apps/sample2
+    APPDIR=/apps/deluge
+    DATADIR=/data/Deluge
     chown -R admin:admin $APPDIR
     # Preserve config directory unless there is new config file
-    [ ! -d $APPDIR/config ] || mkdir $APPDIR/config
-    for conf in $(cd $APPDIR/default-config; find . -type f -o -type l); do
-      [ -e $APPDIR/config/$conf -o -L $APPDIR/config/$conf ] || (cd $APPDIR/default-config; tar cf - $conf) | (cd $APPDIR/config; tar xpf -) 2>/dev/null
-    done
+    if [ ! -d $APPDIR/config ] ; then
+        cp -r $APPDIR/default-config $APPDIR/config
+    fi
+    addgroup --system deluge #maybe non system group? for access control. does this work with kerberos?
+    adduser --system --quiet --home $APPDIR --no-create-home --ingroup deluge deluge
+    chown -R deluge:deluge $APPDIR/config
+    chmod -R o-rwx $APPDIR/config
+    a2enmod proxy_http
+    #create share last
+    if [ ! -d $DATADIR ] ; then
+        rn_nml -a share:$DATADIR
+        setfacl -d -m u:deluge:rwX $DATADIR
+        setfacl -d -m g:deluge:rwX $DATADIR
+        mkdir $DATADIR/Downloads
+        mkdir $DATADIR/Incomplete
+    fi
     # Restart apache so that all site-enables will be updated
     if systemctl restart apache2.service; then
       # success
-      event_push app readynasd '<add-s resource-type="LocalApp" resource-id="LocalApp"><LocalApp appname="sample2" success="1" reboot="1"/></add-s>' 0 0
+      event_push app readynasd '<add-s resource-type="LocalApp" resource-id="LocalApp"><LocalApp appname="deluge" success="1"/></add-s>' 0 0
     else
       # error
-      event_push app readynasd '<add-s resource-type="LocalApp" resource-id="LocalApp"><LocalApp appname="sample2" success="0"/></add-s>' 0 0
+      event_push app readynasd '<add-s resource-type="LocalApp" resource-id="LocalApp"><LocalApp appname="deluge" success="0"/></add-s>' 0 0
     fi
     ;;
 

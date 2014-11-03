@@ -1,0 +1,17 @@
+<Application resource-id="deluge"><!-- 'resource-id' must be AppName -->
+  <Category>APP_CAT_NETWORK_OTHER</Category>
+  <Name>Deluge Daemon and Web-UI</Name><!-- Any desciptive name, upto 48 chars -->
+  <Author>ariscop</Author><!-- Authers name. upto 48 chars -->
+  <Version>1.0.0</Version><!-- Version -->
+  <RequireReboot>0</RequireReboot><!-- If non-zero, it indicate reboot is required. -->
+  <ConfigURL></ConfigURL><!-- 'localhost' will be replaced by framework JS. -->
+  <LaunchURL>https://localhost/apps/deluge/</LaunchURL><!-- 'localhost' will be replaced by framework JS. -->
+  <InfoURL>http://www.deluge-torrent.org/</InfoURL>
+  <ReservePort>8112</ReservePort>
+  <ReservePort>8253</ReservePort>
+  <ReservePort>58846</ReservePort>
+  <DebianPackage>deluge-readynas</DebianPackage>
+  <ServiceName>fvapp-deluge.service</ServiceName>
+  <Description lang="en-us">Username and password is admin
+  Default Web-UI password is deluge</Description>
+</Application>

@@ -1,14 +1,14 @@
-Source: sample2
+Source: deluge-readynas
 Section: contrib
 Priority: extra
-Maintainer: hagi <hagi@unknown>
+Maintainer: Andrew Cook <ariscop@gmail.com>
 Build-Depends: debhelper (>= 8.0.0)
 Standards-Version: 3.9.3
-Homepage: http://www.readynas.com
+Homepage: https://github.com/ariscop/deluge-readynas
+Vcs-Git: https://github.com/ariscop/deluge-readynas.git
+Vcs-Browser: https://github.com/ariscop/deluge-readynas
 
-Package: sample2
+Package: deluge-readynas
 Architecture: all
-Depends: ${misc:Depends}, readynasos (>= 6.0.5~T1271), php5 (>= 5.4.4-10)
-Description: Simple architecture independent example
- This example will not do anything meaningful.
-
+Depends: deluged, deluge-web, ${misc:Depends}, readynasos (>= 6.0.5~T1271)
+Description: Deluge for readynas

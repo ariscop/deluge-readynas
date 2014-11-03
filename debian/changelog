@@ -1,4 +1,11 @@
-sample2 (1.0.0-p1) unstable; urgency=low
+deluge-readynas (1.0.0) UNRELEASED; urgency=medium
+
+  * First version
+  * 
+
+ -- Andrew Cook <andrew@andrews-laptop>  Mon, 03 Nov 2014 18:39:16 +1100
+
+sample2 (1.0.0) unstable; urgency=low
 
   * Added dependency to firmware, i.e. readynasos debian package.
 
